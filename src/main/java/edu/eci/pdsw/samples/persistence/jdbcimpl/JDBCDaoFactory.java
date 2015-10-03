@@ -16,7 +16,7 @@
  */
 package edu.eci.pdsw.samples.persistence.jdbcimpl;
 
-import edu.eci.pdsw.samples.persistence.DaoConsulta;
+
 import edu.eci.pdsw.samples.persistence.DaoFactory;
 import edu.eci.pdsw.samples.persistence.DaoPaciente;
 import edu.eci.pdsw.samples.persistence.PersistenceException;
@@ -124,8 +124,5 @@ public class JDBCDaoFactory extends DaoFactory {
         return new JDBCDaoPaciente(connectionInstance.get());
     }
     
-    public DaoConsulta getDaoConsulta() {
-        return new JDBCDaoConsulta(connectionInstance.get());
-    }
     
 }

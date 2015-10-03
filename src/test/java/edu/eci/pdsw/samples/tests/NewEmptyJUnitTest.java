@@ -21,6 +21,10 @@ import edu.eci.pdsw.samples.entities.Paciente;
 import edu.eci.pdsw.samples.services.ServiceFacadeException;
 import edu.eci.pdsw.samples.services.ServicesFacade;
 import java.sql.Date;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Set;
+import javax.validation.constraints.AssertTrue;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -46,11 +50,18 @@ public class NewEmptyJUnitTest {
     @Test
     public void registroConsultaTest() throws ServiceFacadeException{
         ServicesFacade sf= ServicesFacade.getInstance("applicationconfig.properties");
+        Set <Consulta> s = new HashSet<Consulta>();
         Consulta c= new Consulta(new Date(2015,10,3),"resumen");
-        Paciente p= new Paciente(2101240,"TU","Andres",new Date(1999,5,31));
+        Paciente p= new Paciente(2101266,"TU","Andres",new Date(1999,5,31));
+        s.add(c);
+        p.setConsultas(s);
         sf.registrarNuevoPaciente(p);
-        sf.agregarConsultaAPaciente(2101240,"TU", c);
-        assertTrue(sf.ConsultarUnaConsulta(c.getId()).toString().equals(c.toString()));
+        Paciente pn= sf.consultarPaciente(p.getId(),p.getTipo_id());
+        Iterator<Consulta> i= pn.getConsultas().iterator();
+        Iterator<Consulta> ii=p.getConsultas().iterator();
+        while(i.hasNext() && ii.hasNext()){
+            assertTrue(i.next().getId()==ii.next().getId());
+        }
         
     }
     

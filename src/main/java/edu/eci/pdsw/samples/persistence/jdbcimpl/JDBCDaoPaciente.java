@@ -87,6 +87,7 @@ public class JDBCDaoPaciente implements DaoPaciente {
             ps.setString(2, p.getTipo_id());
             ps.setString(3, p.getNombre());
             ps.setDate(4, p.getFechaNacimiento());            
+            
             ps.execute();
             
             ps = con.prepareStatement("insert into CONSULTAS (fecha_y_hora,resumen,PACIENTES_id,PACIENTES_tipo_id) values (?,?,?,?)",Statement.RETURN_GENERATED_KEYS);
