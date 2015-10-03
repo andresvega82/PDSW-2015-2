@@ -98,4 +98,13 @@ public class ServicesFacade {
         
     }
     
+    
+    /**
+     * Consultar una consulta
+     * @param id Identificador de la consulta
+     */
+    public Consulta ConsultarAUnaConsulta(int id){
+        return null;
+    }
+    
 }

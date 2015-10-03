@@ -16,6 +16,11 @@
  */
 package edu.eci.pdsw.samples.tests;
 
+import edu.eci.pdsw.samples.entities.Consulta;
+import edu.eci.pdsw.samples.entities.Paciente;
+import edu.eci.pdsw.samples.services.ServiceFacadeException;
+import edu.eci.pdsw.samples.services.ServicesFacade;
+import java.sql.Date;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -39,7 +44,13 @@ public class NewEmptyJUnitTest {
     }
     
     @Test
-    public void registroConsultaTest(){
+    public void registroConsultaTest() throws ServiceFacadeException{
+        ServicesFacade sf= ServicesFacade.getInstance("applicationconfig.properties");
+        Consulta c= new Consulta(new Date(2015,10,3),"resumen");
+        Paciente p= new Paciente(2101240,"TU","Andres",new Date(1999,5,31));
+        sf.registrarNuevoPaciente(p);
+        sf.agregarConsultaAPaciente(2101240,"TU", c);
+        assertTrue(sf.ConsultarAUnaConsulta(c.getId()).toString().equals(c.toString()));
         
     }
     
