@@ -50,7 +50,7 @@ public class NewEmptyJUnitTest {
         Paciente p= new Paciente(2101240,"TU","Andres",new Date(1999,5,31));
         sf.registrarNuevoPaciente(p);
         sf.agregarConsultaAPaciente(2101240,"TU", c);
-        assertTrue(sf.ConsultarAUnaConsulta(c.getId()).toString().equals(c.toString()));
+        assertTrue(sf.ConsultarUnaConsulta(c.getId()).toString().equals(c.toString()));
         
     }
     

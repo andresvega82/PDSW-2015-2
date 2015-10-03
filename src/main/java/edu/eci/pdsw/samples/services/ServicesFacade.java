@@ -85,7 +85,16 @@ public class ServicesFacade {
      * o de persistencia (por ejemplo, si el paciente ya existe).
      */
     public void registrarNuevoPaciente(Paciente p) throws ServiceFacadeException{
-       
+        DaoFactory daof=DaoFactory.getInstance(properties);
+        try {
+            daof.beginSession();
+            daof.getDaoPaciente().save(p);
+            daof.commitTransaction();
+            daof.endSession();
+        } catch (PersistenceException ex) {
+            throw new ServiceFacadeException("Error al ingresar paciente.",ex);
+        }
+        
     }
     
     /**
@@ -94,17 +103,33 @@ public class ServicesFacade {
      * @param tipoid el tipo de identificación
      * @param c la consulta a ser agregada
      */
-    public void agregarConsultaAPaciente(int idPaciente,String tipoid,Consulta c){
+    public void agregarConsultaAPaciente(int idPaciente,String tipoid,Consulta c) throws ServiceFacadeException{
+        DaoFactory daof=DaoFactory.getInstance(properties);
+        try {
+            daof.beginSession();
+            daof.getDaoConsulta().save(c);
+            daof.commitTransaction();
+            daof.endSession();
+        } catch (PersistenceException ex) {
+            throw new ServiceFacadeException("Error al ingresar consulta.",ex);
+        }
         
     }
-    
-    
-    /**
-     * Consultar una consulta
-     * @param id Identificador de la consulta
-     */
-    public Consulta ConsultarAUnaConsulta(int id){
-        return null;
+
+    public Consulta ConsultarUnaConsulta(int id) throws ServiceFacadeException {
+        DaoFactory daof=DaoFactory.getInstance(properties);
+        Consulta c;
+        try {
+            daof.beginSession();
+            c=daof.getDaoConsulta().load(id);
+            daof.endSession();
+        } catch (PersistenceException ex) {
+            throw new ServiceFacadeException("Error al Consultar una consulta.",ex);
+        }
+        return c;
     }
+
+    
+    
     
 }
